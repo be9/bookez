@@ -1,0 +1,14 @@
+development: &dev
+  adapter: mysql
+  encoding: utf8
+  database: bookez_dev
+  username: bookez
+  # password:
+
+test:
+  <<: *dev
+  database: bookez_dev
+
+production:
+  <<: *dev
+  database: bookez_prod
