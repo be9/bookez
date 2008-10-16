@@ -31,6 +31,7 @@ describe "/books/index.html.erb" do
   end
 
   it "should render list of books" do
+    pending
     render "/books/index.html.erb"
     response.should have_tag("tr>td", "value for title", 2)
     response.should have_tag("tr>td", "value for publisher", 2)

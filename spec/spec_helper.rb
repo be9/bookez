@@ -48,3 +48,6 @@ Spec::Runner.configure do |config|
   # 
   # For more information take a look at Spec::Example::Configuration and Spec::Runner
 end
+
+require 'pp'
+require File.join(File.dirname(__FILE__), "spec_fixtures.rb")

@@ -10,7 +10,7 @@ class CreateBooks < ActiveRecord::Migration
       t.text :annotation
       t.integer :circulation
       t.string :series
-
+      t.text   :info
       t.timestamps
     end
   end

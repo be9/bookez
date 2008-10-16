@@ -9,7 +9,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080929171348) do
+ActiveRecord::Schema.define(:version => 20081016141330) do
+
+  create_table "books", :force => true do |t|
+    t.string   "title"
+    t.string   "publisher"
+    t.integer  "year"
+    t.string   "isbn"
+    t.integer  "pages"
+    t.string   "orig_title"
+    t.text     "annotation"
+    t.integer  "circulation"
+    t.string   "series"
+    t.text     "info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "open_id_authentication_associations", :force => true do |t|
     t.integer "issued"
@@ -50,8 +65,8 @@ ActiveRecord::Schema.define(:version => 20080929171348) do
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40

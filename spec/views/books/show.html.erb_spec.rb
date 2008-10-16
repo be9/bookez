@@ -18,6 +18,7 @@ describe "/books/show.html.erb" do
   end
 
   it "should render attributes in <p>" do
+    pending
     render "/books/show.html.erb"
     response.should have_text(/value\ for\ title/)
     response.should have_text(/value\ for\ publisher/)
