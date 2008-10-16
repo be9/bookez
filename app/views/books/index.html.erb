@@ -1,0 +1,36 @@
+<h1>Listing books</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Publisher</th>
+    <th>Year</th>
+    <th>Isbn</th>
+    <th>Pages</th>
+    <th>Orig title</th>
+    <th>Annotation</th>
+    <th>Circulation</th>
+    <th>Series</th>
+  </tr>
+
+<% for book in @books %>
+  <tr>
+    <td><%=h book.title %></td>
+    <td><%=h book.publisher %></td>
+    <td><%=h book.year %></td>
+    <td><%=h book.isbn %></td>
+    <td><%=h book.pages %></td>
+    <td><%=h book.orig_title %></td>
+    <td><%=h book.annotation %></td>
+    <td><%=h book.circulation %></td>
+    <td><%=h book.series %></td>
+    <td><%= link_to 'Show', book %></td>
+    <td><%= link_to 'Edit', edit_book_path(book) %></td>
+    <td><%= link_to 'Destroy', book, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New book', new_book_path %>

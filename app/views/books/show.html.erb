@@ -1,0 +1,48 @@
+<p>
+  <b>Title:</b>
+  <%=h @book.title %>
+</p>
+
+<p>
+  <b>Publisher:</b>
+  <%=h @book.publisher %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%=h @book.year %>
+</p>
+
+<p>
+  <b>Isbn:</b>
+  <%=h @book.isbn %>
+</p>
+
+<p>
+  <b>Pages:</b>
+  <%=h @book.pages %>
+</p>
+
+<p>
+  <b>Orig title:</b>
+  <%=h @book.orig_title %>
+</p>
+
+<p>
+  <b>Annotation:</b>
+  <%=h @book.annotation %>
+</p>
+
+<p>
+  <b>Circulation:</b>
+  <%=h @book.circulation %>
+</p>
+
+<p>
+  <b>Series:</b>
+  <%=h @book.series %>
+</p>
+
+
+<%= link_to 'Edit', edit_book_path(@book) %> |
+<%= link_to 'Back', books_path %>
