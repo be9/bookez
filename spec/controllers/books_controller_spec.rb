@@ -14,18 +14,6 @@ describe BooksController do
       assigns[:books].should == [mock_book]
     end
 
-    describe "with mime type of xml" do
-  
-      it "should render all books as xml" do
-        request.env["HTTP_ACCEPT"] = "application/xml"
-        Book.should_receive(:find).with(:all).and_return(books = mock("Array of Books"))
-        books.should_receive(:to_xml).and_return("generated XML")
-        get :index
-        response.body.should == "generated XML"
-      end
-    
-    end
-
   end
 
   describe "responding to GET show" do
@@ -34,18 +22,6 @@ describe BooksController do
       Book.should_receive(:find).with("37").and_return(mock_book)
       get :show, :id => "37"
       assigns[:book].should equal(mock_book)
-    end
-    
-    describe "with mime type of xml" do
-
-      it "should render the requested book as xml" do
-        request.env["HTTP_ACCEPT"] = "application/xml"
-        Book.should_receive(:find).with("37").and_return(mock_book)
-        mock_book.should_receive(:to_xml).and_return("generated XML")
-        get :show, :id => "37"
-        response.body.should == "generated XML"
-      end
-
     end
     
   end
