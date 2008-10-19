@@ -7,8 +7,7 @@ class SearchController < ApplicationController
     books_rating = {} # book => rating
     query.each do |word|
       # find every word in title, orig_title and author
-      books = Book.all(:conditions => ["title LIKE ?", "%#{word}%"])
-      books |= Book.all(:conditions => ["orig_title LIKE ?", "%#{word}%"])
+      books = Book.all(:conditions => ["title LIKE ? OR orig_title LIKE ?", "%#{word}%", "%#{word}%"])
       add_books_by_rating(books_rating, books, 2)
       
       # find in annotation but with less rating
