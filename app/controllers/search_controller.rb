@@ -13,6 +13,14 @@ class SearchController < ApplicationController
       # find in annotation but with less rating
       books = Book.all(:conditions => ["annotation LIKE ?", "%#{word}%"])
       add_books_by_rating(books_rating, books, 1)
+      
+      # find in authors
+      books = []
+      authors = Author.all(:conditions => ["author LIKE ?", "%#{word}%"])
+      authors.each do |author|
+        books += author.books
+      end
+      add_books_by_rating(books_rating, books, 2)
     end
     # sort books by rating
     @books = (books_rating.sort { |x, y| y[1] <=> x[1] } ).map { |x| x[0] }
