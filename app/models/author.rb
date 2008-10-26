@@ -1,6 +1,6 @@
 class Author < ActiveRecord::Base
-  validates_presence_of :author
+  validates_presence_of :name
   
-  has_many :author_ships
-  has_many :books, :through => :author_ships
+  has_many :authorships
+  has_many :books, :through => :authorships
 end

@@ -65,10 +65,10 @@ describe SearchController do
 
       author = mock_model Author
       Author.should_receive(:all).with(\
-        :conditions => ["author LIKE ?", "%aaa%"]).\
+        :conditions => ["name LIKE ?", "%aaa%"]).\
         and_return([aaa_auth])
       Author.should_receive(:all).with(\
-        :conditions => ["author LIKE ?", "%bbb%"]).\
+        :conditions => ["name LIKE ?", "%bbb%"]).\
         and_return([bbb_auth])
 
       book = mock_model Book
@@ -85,7 +85,7 @@ describe SearchController do
 
       author = mock_model Author
       Author.should_receive(:all).with(\
-        :conditions => ["author LIKE ?", "%aaa%"]).\
+        :conditions => ["name LIKE ?", "%aaa%"]).\
         and_return([aaa_auth])
 
       book = mock_model Book

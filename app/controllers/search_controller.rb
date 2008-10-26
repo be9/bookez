@@ -16,7 +16,7 @@ class SearchController < ApplicationController
       
       # find in authors
       books = []
-      authors = Author.all(:conditions => ["author LIKE ?", "%#{word}%"])
+      authors = Author.all(:conditions => ["name LIKE ?", "%#{word}%"])
       authors.each do |author|
         books += author.books
       end
