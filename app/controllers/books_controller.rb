@@ -29,7 +29,7 @@ class BooksController < ApplicationController
 
     authors = []
     author_names.each do |author|
-      authors << Author.new( :author => author )
+      authors << Author.new( :name => author )
     end
     p[:authors] = [] # else we got error :(
     @book = Book.new(p)
@@ -38,7 +38,7 @@ class BooksController < ApplicationController
     if @book.save and authors.map { |x| x.save } .all?
       success = true
       authors.each do |author|
-        succes &= AuthorShip.new( :book => @book, :author => author).save
+        succes &= Authorship.new( :book => @book, :author => author).save
       end
     end
 
