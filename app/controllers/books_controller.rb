@@ -21,28 +21,9 @@ class BooksController < ApplicationController
 
   # POST /books
   def create
-    # TODO
-    # maybe Rails can do it faster???
+    @book = Book.new(params[:book])
 
-    p = params[:book]
-    author_names = p[:authors].split( "," ).map {|x| x.strip}
-
-    authors = []
-    author_names.each do |author|
-      authors << Author.new( :name => author )
-    end
-    p[:authors] = [] # else we got error :(
-    @book = Book.new(p)
-
-    success = false
-    if @book.save and authors.map { |x| x.save } .all?
-      success = true
-      authors.each do |author|
-        succes &= Authorship.new( :book => @book, :author => author).save
-      end
-    end
-
-    if success
+    if @book.save
       flash[:notice] = 'Book was successfully created.'
       redirect_to(@book)
     else

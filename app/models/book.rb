@@ -5,4 +5,14 @@ class Book < ActiveRecord::Base
 
   has_many :authorships
   has_many :authors, :through => :authorships
+
+  def str_authors
+    authors.map {|x| x.name} .join ", "
+  end
+
+  def str_authors=(au)
+    self.authors = au.split( "," ).map do |x|
+      Author.find_or_create_by_name( :name => x.strip )
+    end
+  end
 end
