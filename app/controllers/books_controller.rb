@@ -21,10 +21,6 @@ class BooksController < ApplicationController
 
   # POST /books
   def create
-    params[:book][:authors] = params[:book][:authors].split( "," ).map do |x|
-      Author.find_or_create_by_name( :name => x.strip )
-    end
- 
     @book = Book.new(params[:book])
 
     if @book.save
