@@ -17,7 +17,7 @@
 <% for book in @books %>
   <tr>
     <td><%=h book.title %></td>
-    <td><%=h book.author %></td>
+    <td><%=h authors_to_s(book) %></td>
     <td><%=h book.publisher %></td>
     <td><%=h book.year %></td>
     <td><%=h book.isbn %></td>

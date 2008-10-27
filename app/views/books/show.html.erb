@@ -5,7 +5,7 @@
 
 <p>
   <b>Authors:</b>
-  <%=h @book.authors.map {|x| x.name} .join ", " %>
+  <%=h authors_to_s(@book) %>
 </p>
 
 <p>
