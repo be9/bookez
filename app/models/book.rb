@@ -12,7 +12,7 @@ class Book < ActiveRecord::Base
 
   def str_authors=(au)
     self.authors = au.split( "," ).map do |x|
-    Author.find_or_create_by_name( x.strip )
+      Author.find_or_create_by_name( x.strip )
     end
   end
 end
