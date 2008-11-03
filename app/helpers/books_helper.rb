@@ -1,8 +1,7 @@
 module BooksHelper
   def format_authors(authors)
     authors.map do |author|
-      #link_to h(author.name), author
-      h(author.name)
+      link_to h(author.name), author
     end.join(', ')
   end
 
