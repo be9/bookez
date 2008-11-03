@@ -412,3 +412,8 @@ ol.login {
   list-style: none;
   padding-left: 10px;
 }
+
+ol.booklist {
+  list-style: none;
+  padding-left: 0;
+}
