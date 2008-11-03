@@ -1,14 +1,11 @@
-<h1>Search results</h1>
+<% @page_title = "Search results" %>
 
-<table>
-  <tr>
-    <th>Title</th>
-  </tr>
-
-<% for book in @books %>
-  <tr>
-    <td><%=h book.title %></td>
-    <td><%= link_to 'Show', book %></td>
-  </tr>
-<% end %>
-</table>
+<% if @books.size > 0 %>
+  <ol class="booklist">
+    <%= render :partial => "books/book", :collection => @books %>
+  </ol>
+<% else%>
+  <p>
+    Sorry, nothing was found.
+  </p>
+<% end%>

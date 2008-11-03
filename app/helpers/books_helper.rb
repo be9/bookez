@@ -3,7 +3,7 @@ module BooksHelper
     authors.map do |author|
       #link_to h(author.name), author
       h(author.name)
-    end.join(',')
+    end.join(', ')
   end
 
   def link_to_book(book)

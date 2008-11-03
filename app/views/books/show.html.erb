@@ -1,52 +1,72 @@
+<% @page_title = h(@book.title) %>
+
 <p>
   <b>Title:</b>
   <%=h @book.title %>
 </p>
 
+<% unless (s = @book.str_authors).empty? %>
 <p>
   <b>Authors:</b>
-  <%=h @book.str_authors %>
+  <%=h s %>
 </p>
+<% end %>
 
+<% unless (s = @book.publisher).empty? %>
 <p>
   <b>Publisher:</b>
-  <%=h @book.publisher %>
+  <%=h s %>
 </p>
+<% end %>
 
+<% unless (s = @book.year).nil? %>
 <p>
   <b>Year:</b>
-  <%=h @book.year %>
+  <%=h s %>
 </p>
+<% end %>
 
+<% unless (s = @book.isbn).empty? %>
 <p>
   <b>Isbn:</b>
-  <%=h @book.isbn %>
+  <%=h s %>
 </p>
+<% end %>
 
+<% unless (s = @book.pages).nil? %>
 <p>
   <b>Pages:</b>
-  <%=h @book.pages %>
+  <%=h s %>
 </p>
+<% end %>
 
+<% unless (s = @book.orig_title).empty? %>
 <p>
   <b>Orig title:</b>
-  <%=h @book.orig_title %>
+  <%=h s %>
 </p>
+<% end %>
 
+<% unless (s = @book.annotation).empty? %>
 <p>
   <b>Annotation:</b>
-  <%=h @book.annotation %>
+  <%=h s %>
 </p>
+<% end %>
 
+<% unless (s = @book.circulation).nil? %>
 <p>
   <b>Circulation:</b>
-  <%=h @book.circulation %>
+  <%=h s %>
 </p>
+<% end %>
 
+<% unless (s = @book.series).empty? %>
 <p>
   <b>Series:</b>
-  <%=h @book.series %>
+  <%=h s %>
 </p>
+<% end %>
 
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
