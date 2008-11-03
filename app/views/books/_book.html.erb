@@ -1,4 +1,6 @@
 <li>
-  <span class="authors"><i><%= format_authors(book.authors) %></i></span>. 
-  <span class="booktitle"><b><%= link_to_book(book) %></b></span>
+<div class="post">
+  <h2 class="title"><%= link_to_book(book) %></h2>
+  <p class="meta"><%= format_authors(book.authors) %></p>
+</div>
 </li>
