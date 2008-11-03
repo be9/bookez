@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  before_filter :find_book, :except => [:index, :new, :create]
   # GET /books
   def index
     @books = Book.find(:all)
@@ -6,7 +7,6 @@ class BooksController < ApplicationController
 
   # GET /books/1
   def show
-    @book = Book.find(params[:id])
   end
 
   # GET /books/new
@@ -16,7 +16,6 @@ class BooksController < ApplicationController
 
   # GET /books/1/edit
   def edit
-    @book = Book.find(params[:id])
   end
 
   # POST /books
@@ -33,8 +32,6 @@ class BooksController < ApplicationController
 
   # PUT /books/1
   def update
-    @book = Book.find(params[:id])
-
     if @book.update_attributes(params[:book])
       flash[:notice] = 'Book was successfully updated.'
       redirect_to(@book)
@@ -45,9 +42,14 @@ class BooksController < ApplicationController
 
   # DELETE /books/1
   def destroy
-    @book = Book.find(params[:id])
     @book.destroy
 
     redirect_to(books_url)
+  end
+
+  private
+
+  def find_book
+    @book = Book.find(params[:id])
   end
 end
