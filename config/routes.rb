@@ -17,9 +17,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :passwords
   map.resource :session
+  map.resource :homepage
 
   # Home Page
-  map.root :controller => 'books', :action => 'index'
+  map.root :controller => 'homepage', :action => 'show'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
