@@ -1,8 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :books
   map.resource :search, :controller => 'search'
-  map.resources :authors
-  map.resource :homepage
  
   # Restful Authentication Rewrites
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
@@ -19,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :passwords
   map.resource :session
+  map.resource :homepage
 
   # Home Page
   map.root :controller => 'homepage', :action => 'show'
