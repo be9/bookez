@@ -8,7 +8,7 @@
 <% unless (s = @book.str_authors).empty? %>
 <p>
   <b>Authors:</b>
-  <%=h s %>
+  <%=format_authors(@book.authors) %>
 </p>
 <% end %>
 
