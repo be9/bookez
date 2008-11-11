@@ -1,0 +1,4 @@
+<% @page_title = "#{h(@user.login)}'s page" %>
+<ol class="booklist">
+  <%= render :partial => 'books/book', :collection => @books %>
+</ol>

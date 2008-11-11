@@ -7,6 +7,9 @@ class Book < ActiveRecord::Base
 
   has_many :authorships
   has_many :authors, :through => :authorships, :order => :position
+  
+  has_many :user_and_books
+  has_many :users, :through => :user_and_books
 
   def str_authors
     authors.map {|x| x.name} .join ", "

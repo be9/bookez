@@ -4,6 +4,11 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
+    
+  def show
+    @user = User.find( params[:id] )
+    @books = @user.books
+  end
  
   def create
     logout_keeping_session!
