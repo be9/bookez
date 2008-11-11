@@ -49,7 +49,12 @@
             <div><h1>Login</h1></div>
             <%= render :partial => 'layouts/login_form' %>
           <% else %>
-            <div><h1>Hi, you are logged in</h1></div>
+            <div><h1><%= "Hi, you are logged in as <b>#{h(current_user.login)}</b>"%></h1></div>
+            <ul>
+              <li><%= link_to_current_user :content_text => 'Your home page' %>
+              <li><%= link_to "Add new book", :controller => :books, :action => :new %>
+              <li><%= link_to "Logout", :controller => 'sessions', :action => 'destroy' %>
+            </ul>
           <% end %>
         </div>
         <!-- end recent-posts -->

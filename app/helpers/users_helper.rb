@@ -1,5 +1,10 @@
 module UsersHelper
   
+  def users_page_title(user)
+    self_page = " (this is you)" if user == current_user
+    "#{h(user.login)}'s page#{self_page}"
+  end
+  
   #
   # Use this to wrap view elements that the user can't access.
   # !! Note: this is an *interface*, not *security* feature !!

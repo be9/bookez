@@ -11,7 +11,12 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
-    @book = Book.new
+    if current_user
+      @book = Book.new
+    else
+      flash[:notice] = 'You should be logged in for creating books.'
+      redirect_to :controller => 'sessions', :action => 'new'
+    end
   end
 
   # GET /books/1/edit
@@ -21,6 +26,8 @@ class BooksController < ApplicationController
   # POST /books
   def create
     @book = Book.new(params[:book])
+
+    @book.users << current_user if current_user
 
     if @book.save
       flash[:notice] = 'Book was successfully created.'
