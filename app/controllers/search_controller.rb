@@ -25,7 +25,15 @@ class SearchController < ApplicationController
     # sort books by rating (descending)
     @books = (books_rating.sort_by { |x| -x[1] } ).map { |x| x[0] }
   end
-  
+ 
+  def by_title
+    if true #xhr?
+       render :text => "123\n456\nabcdef\nВася"
+    else
+       render :text => "XHR only", :status => 403
+    end
+  end
+ 
   private
   def add_books_by_author_position(books_rating_hash, books, author)
     books.each do |book|

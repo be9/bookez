@@ -417,3 +417,61 @@ ol.booklist {
   list-style: none;
   padding-left: 0;
 }
+
+/*autocomplete*/
+.ui-autocomplete-results {
+        /*resets*/margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none;
+        font-family: Verdana, Arial, sans-serif;
+        font-size: 1.1em;
+
+        border: 1px solid #d3d3d3;
+        background: #ffffff;
+        color: #222222;
+
+        overflow: hidden;
+        z-index: 99999;
+}
+ 
+.ui-autocomplete-results ul {
+        width: 100%;
+        list-style-position: outside;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+}
+
+.ui-autocomplete-results li {
+        margin: 0px;
+        padding: 2px 5px;
+        cursor: default;
+        display: block;
+        /*
+        if width will be 100% horizontal scrollbar will apear
+        when scroll mode will be used
+        */
+        /*width: 100%;*/
+        font: menu;
+        font-size: 12px;
+        /*
+        it is very important, if line-height not setted or setted
+        in relative units scroll will be broken in firefox
+        */
+        line-height: 16px;
+        overflow: hidden;
+        border: 1px solid #d3d3d3;
+        background: #e6e6e6 url(images/e6e6e6_40x100_textures_02_glass_75.png) 0 50% repeat-x;
+        font-weight: normal;
+        color: #555555 !important;
+
+}
+
+.ui-autocomplete-loading {
+        background: white url('indicator.gif') right center no-repeat;
+}
+
+.ui-autocomplete-results li.ui-autocomplete-over {
+        border: 1px solid #999999;
+        background: #dadada url(images/dadada_40x100_textures_02_glass_75.png) 0 50% repeat-x;
+        font-weight: normal;
+        color: #212121 !important;
+}
