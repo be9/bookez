@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   # Relationships
   has_and_belongs_to_many :roles
     
-  has_many :user_and_books
+  has_many :user_and_books, :dependent => :destroy
   has_many :books, :through => :user_and_books
     
   # HACK HACK HACK -- how to do attr_accessible from here?
