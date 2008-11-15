@@ -5,9 +5,4 @@ class AuthorsController < ApplicationController
 
     #@books = @author.books.sort_by { |book| get_position_in_authors(@author, book) }
   end
-
-  private
-  #def get_position_in_authors(author, book)
-  #  Authorship.find(:first, :conditions => ["book_id=? AND author_id=?", "#{book.id}", "#{author.id}"]).position
-  #end
 end

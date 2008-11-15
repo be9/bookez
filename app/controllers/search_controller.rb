@@ -7,19 +7,18 @@ class SearchController < ApplicationController
     books_rating = {} # book => rating
     query.each do |word|
       # find every word in title, orig_title and author
-      books = Book.all(:conditions => ["title LIKE ? OR orig_title LIKE ?", "%#{word}%", "%#{word}%"])
-      add_books_by_rating(books_rating, books, 2)
+      Book.all(:conditions => ["title LIKE ? OR orig_title LIKE ?", "%#{word}%", "%#{word}%"]).each do |book|
+        add_book_by_rating(books_rating, book, 2)
+      end
       
       # find in annotation but with less rating
-      books = Book.all(:conditions => ["annotation LIKE ?", "%#{word}%"])
-      add_books_by_rating(books_rating, books, 1)
+      Book.all(:conditions => ["annotation LIKE ?", "%#{word}%"]).each do |book|
+        add_book_by_rating(books_rating, book, 1)
+      end
       
       # find in authors
-      books = []
-      authors = Author.all(:conditions => ["name LIKE ?", "%#{word}%"])
-      authors.each do |author|
-        books += author.books
-        add_books_by_author_position(books_rating, books, author)
+      Author.all(:conditions => ["name LIKE ?", "%#{word}%"]).each do |author|
+        add_author_books(books_rating, author)
       end
     end
     # sort books by rating (descending)
@@ -35,25 +34,13 @@ class SearchController < ApplicationController
   end
  
   private
-  def add_books_by_author_position(books_rating_hash, books, author)
-    books.each do |book|
-      pos = Authorship.find(:first, :conditions => ["book_id=? AND author_id=?", "#{book.id}", "#{author.id}"]).position
-      if books_rating_hash.include? book
-        books_rating_hash[book] += 1+(0.5)**pos
-      else
-        books_rating_hash[book] = 1+(0.5)**pos
-      end
+  def add_author_books(hash, author)
+    author.get_books_with_position.each do |book, pos|
+      add_book_by_rating( hash, book, 1 + 0.5**pos )
     end
   end
 
-  def add_books_by_rating(books_rating_hash, books, rating)
-    books.each do |book|
-      # 1.0 - rating for titles
-      if books_rating_hash.include? book
-        books_rating_hash[book] += rating
-      else
-        books_rating_hash[book] = rating
-      end
-    end
+  def add_book_by_rating(hash, book, rating)
+    hash[book] = (hash[book] || 0) + rating
   end
 end

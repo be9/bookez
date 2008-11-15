@@ -58,10 +58,12 @@ describe SearchController do
 
     it "should find by authors and sort them by hits" do
       aaa_auth = mock Author
-      aaa_auth.should_receive(:books).and_return([:aaa_bbb, :aaa])
+      aaa_auth.should_receive( :get_books_with_position ).with().\
+        and_return( [ [:aaa_bbb, 1], [:aaa, 1] ])
 
       bbb_auth = mock Author
-      bbb_auth.should_receive(:books).and_return([:aaa_bbb])
+      bbb_auth.should_receive( :get_books_with_position ).with().\
+        and_return( [ [:aaa_bbb, 2], ])
 
       author = mock_model Author
       Author.should_receive(:all).with(\
@@ -79,9 +81,34 @@ describe SearchController do
       assigns[:books].should == [:aaa_bbb, :aaa]
     end
 
+    it "should find by authors and sort them by author position" do
+      aaa_auth = mock Author
+      aaa_auth.should_receive( :get_books_with_position ).with().\
+        and_return( [ [:aaa_bbb, 1], [:aaa, 1] ])
+
+      bbb_auth = mock Author
+      bbb_auth.should_receive( :get_books_with_position ).with().\
+        and_return( [ [:aaa_bbb, 2], [:bbb, 3] ])
+
+      author = mock_model Author
+      Author.should_receive(:all).with(\
+        :conditions => ["name LIKE ?", "%aaa%"]).\
+        and_return([aaa_auth])
+      Author.should_receive(:all).with(\
+        :conditions => ["name LIKE ?", "%bbb%"]).\
+        and_return([bbb_auth])
+
+      book = mock_model Book
+      Book.should_receive(:all).any_number_of_times.and_return []
+
+      post :create, :query => "aaa bbb"
+
+      assigns[:books].should == [:aaa_bbb, :aaa, :bbb]
+    end
     it "should place author-books before annotation-books while sorting" do
       aaa_auth = mock Author
-      aaa_auth.should_receive(:books).and_return([:author])
+      aaa_auth.should_receive( :get_books_with_position ).with().\
+        and_return( [ [:author, 1], ] )
 
       author = mock_model Author
       Author.should_receive(:all).with(\
