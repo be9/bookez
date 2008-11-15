@@ -28,12 +28,21 @@ describe BooksController do
 
   describe "responding to GET new" do
   
-    it "should expose a new book as @book" do
+    it "should expose a new book as @book if you are logged in" do
+      pending
+
       Book.should_receive(:new).and_return(mock_book)
       get :new
       assigns[:book].should equal(mock_book)
     end
 
+    it "should not expose a new book if you are not logged in" do
+      pending
+
+      Book.should_receive(:new).and_return(mock_book)
+      get :new
+      assigns[:book].should equal(mock_book)
+    end
   end
 
   describe "responding to GET edit" do
