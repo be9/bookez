@@ -30,7 +30,7 @@ class SearchController < ApplicationController
  
   def by_title
     if true #xhr?
-       render :text => search_book(:title, params[:q]).merge(search_book(:orig_title, params[:q])).map( &:title ).join("\n")
+       render :text => (search_book(:title, params[:q]) | search_book(:orig_title, params[:q])).map( &:title ).join("\n")
     else
        render :text => "XHR only", :status => 403
     end
