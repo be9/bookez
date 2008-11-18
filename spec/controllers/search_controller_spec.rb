@@ -17,11 +17,17 @@ describe SearchController do
     it "should place books with more hits on first places" do
       book = mock_model Book
       Book.should_receive(:all).with(\
-        :conditions => ["title LIKE ? OR orig_title LIKE ?", "%aaa%", "%aaa%"]).\
-        and_return([:aaa_book, :aaa_bbb_book])
+        :conditions => ["title LIKE ?", "%aaa%"]).\
+        and_return([:aaa_book])
       Book.should_receive(:all).with(\
-        :conditions => ["title LIKE ? OR orig_title LIKE ?", "%bbb%", "%bbb%"]).\
+        :conditions => ["orig_title LIKE ?", "%aaa%"]).\
         and_return([:aaa_bbb_book])
+      Book.should_receive(:all).with(\
+        :conditions => ["title LIKE ?", "%bbb%"]).\
+        and_return([:aaa_bbb_book])
+      Book.should_receive(:all).with(\
+        :conditions => ["orig_title LIKE ?", "%bbb%"]).\
+        and_return([])
       ["aaa", "bbb"].each do |name|
         Book.should_receive(:all).with(\
           :conditions => ["annotation LIKE ?", "%#{name}%"]).\
@@ -36,8 +42,11 @@ describe SearchController do
     it "should place books with more hits in titles before books with hits in annotation" do
       book = mock_model Book
       Book.should_receive(:all).with(\
-        :conditions => ["title LIKE ? OR orig_title LIKE ?", "%aaa%", "%aaa%"]).\
-        and_return([:title_book, :title_annot_book])
+        :conditions => ["title LIKE ?", "%aaa%"]).\
+        and_return([:title_annot_book])
+      Book.should_receive(:all).with(\
+        :conditions => ["orig_title LIKE ?", "%aaa%"]).\
+        and_return([:title_book])
       Book.should_receive(:all).with(\
         :conditions => ["annotation LIKE ?", "%aaa%"]).\
         and_return([:annot_book, :title_annot_book])
@@ -105,6 +114,7 @@ describe SearchController do
 
       assigns[:books].should == [:aaa_bbb, :aaa, :bbb]
     end
+
     it "should place author-books before annotation-books while sorting" do
       aaa_auth = mock Author
       aaa_auth.should_receive( :get_books_with_position ).with().\
@@ -119,7 +129,7 @@ describe SearchController do
       Book.should_receive(:all).with(\
         :conditions => ["annotation LIKE ?", "%aaa%"]).\
         and_return([:annot])
-      Book.should_receive(:all).and_return([])
+      Book.should_receive(:all).any_number_of_times.and_return([])
 
       post :create, :query => "aaa"
 
