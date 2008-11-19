@@ -4,10 +4,10 @@ describe SearchController do
   describe "#create" do
     it "should return [] if nothing found" do
       book = mock_model Book
-      Book.should_receive(:all).any_number_of_times.times.and_return([])
+      Book.stub!(:all).and_return([])
 
       author = mock_model Author
-      Author.should_receive(:all).any_number_of_times.and_return([])
+      Author.stub!(:all).and_return([])
 
       post :create, :query => "aaa bbb"
 
