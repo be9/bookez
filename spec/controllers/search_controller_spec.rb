@@ -60,7 +60,7 @@ describe SearchController do
       book = mock_model Book
       Book.should_receive(:all).any_number_of_times.and_return []
 
-      post :create, :query => nil
+      post :create, :query => ""
   
       assigns[:books].should == []
     end
