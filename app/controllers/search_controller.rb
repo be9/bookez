@@ -1,31 +1,12 @@
 class SearchController < ApplicationController
+  include SearchHelper
+
   def show
   end
   
   def create
-    query = (params[:query] || '').split
-    books_rating = {} # book => rating
-    query.each do |word|
-      search_book(:title, word).each do |book|
-        add_book_by_rating(books_rating, book, 2)
-      end
-      
-      search_book(:orig_title, word).each do |book|
-        add_book_by_rating(books_rating, book, 1.5)
-      end
-      
-      search_book(:annotation, word).each do |book|
-        add_book_by_rating(books_rating, book, 1)
-      end
-      
-      # find in authors
-      search_author(word).each do |author|
-        add_author_books(books_rating, author, 1, 2)
-      end
-    end
-
-    # sort books by rating (descending)
-    @books = (books_rating.sort_by { |x| -x[1] } ).map { |x| x[0] }
+    @books = smart_search(params[:query],
+                 :in_titles => true, :in_annotations => true, :in_authors => true)
   end
  
   def by_title
@@ -46,27 +27,5 @@ class SearchController < ApplicationController
     else
       render :text => "XHR only", :status => 403
     end
-  end
-
-  private
-  def search_book(field, str)  
-    # find str in book's field
-    Book.all(:conditions => ["#{field} LIKE ?", "%#{str}%"])
-  end
-
-  def search_author(str)  
-    # find author by name
-    Author.all(:conditions => ["name LIKE ?", "%#{str}%"])
-  end
-
-  def add_author_books(hash, author, min_rating, max_rating)
-    author.get_books_with_position.each do |book, pos|
-      add_book_by_rating( hash, book,
-        min_rating + (max_rating - min_rating) * 0.5**pos)
-    end
-  end
-
-  def add_book_by_rating(hash, book, rating)
-    hash[book] = (hash[book] || 0) + rating
   end
 end

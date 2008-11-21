@@ -1,6 +1,6 @@
 <% @page_title = "Search results" %>
 
-<% if @books.size > 0 %>
+<% if not @books.empty? %>
   <ol class="booklist">
     <%= render :partial => "books/book", :collection => @books %>
   </ol>
