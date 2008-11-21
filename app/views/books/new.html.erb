@@ -3,6 +3,13 @@
   @include_js = 'books'
 %>
 
+<% if @similar_books and not @similar_books.empty? %>
+  <ol class="booklist">
+    <%= render :partial => "books/book", :collection => @similar_books %>
+  </ol>
+  <h3>If you anyway want to add your book submit form one more time.</h3>
+<% end %>
+
 <% form_for(@book) do |f| %>
   <%= render :partial => 'fields', :locals => { :f => f }  %>
 

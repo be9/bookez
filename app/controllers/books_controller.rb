@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+  include SearchHelper
+
   before_filter :find_book, :except => [:index, :new, :create]
   # GET /books
   def index
@@ -26,6 +28,15 @@ class BooksController < ApplicationController
   # POST /books
   def create
     @book = Book.new(params[:book])
+
+    if true #params[:book][:create_anyway] == "false"
+      # search
+      @similar_books = by_params( params[:book] )
+      if not @similar_books.empty?
+        flash[:notice] = 'Similar books were found in our library, maybe you will better choose one of them.'
+        return render :action => "new"
+      end
+    end
 
     @book.users << current_user if current_user
 
