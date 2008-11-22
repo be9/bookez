@@ -5,10 +5,10 @@ class Author < ActiveRecord::Base
   has_many :books, :through => :authorships
 
   def get_books_with_position
-    # returns array of pairs with book and
+    # returns hash with book and
     # position of author in it's author list
-    authorships.map do |as|
-      [ as.book, as.position ]
-    end
+    hash = {}
+    authorships.each { |as| hash[as.book] = as.position }
+    hash
   end
 end

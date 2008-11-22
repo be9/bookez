@@ -11,7 +11,7 @@ describe Author do
     Factory.build(:author).should be_valid
   end
 
-  it "#get_books_with_positon should return [book - pos] array" do
+  it "#get_books_with_positon should return {book => pos} hash" do
     a1 = Factory :author
     a2 = Factory :author
     a3 = Factory :author
@@ -20,8 +20,8 @@ describe Author do
     b2 = Factory :book, :title => "BookTwo",   :authors => [a2,a1], :users => [@user]
     b3 = Factory :book, :title => "BookThree", :authors => [a3,a1,a2], :users => [@user]
 
-    a1.get_books_with_position.should == [ [b1, 1], [b2, 2], [b3, 2] ]
-    a2.get_books_with_position.should == [ [b2, 1], [b3, 3] ]
-    a3.get_books_with_position.should == [ [b1, 2], [b3, 1] ]
+    a1.get_books_with_position.should == { b1 => 1, b2 => 2, b3 => 2 }
+    a2.get_books_with_position.should == { b2 => 1, b3 => 3 }
+    a3.get_books_with_position.should == { b1 => 2, b3 => 1 }
   end
 end
