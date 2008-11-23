@@ -1,4 +1,8 @@
-<% @page_title = 'Editing book' %>
+<%
+  @page_title = 'Editing book'
+  @include_js = 'books'
+%>
+
 
 <% form_for(@book) do |f| %>
   <%= render :partial => 'fields', :locals => { :f => f }  %>
