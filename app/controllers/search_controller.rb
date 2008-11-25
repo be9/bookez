@@ -20,7 +20,7 @@ class SearchController < ApplicationController
   def by_author
     if true #xhr?
       q = params[:q]
-      author = q.split(",").last
+      author = q.split(",").last.strip
       static = q[0, q.length - author.length] # cut off author
 
       render :text => search_author( author.strip )[0, params[:limit].to_i].map { |x| "#{static}#{x.name}" }.join("\n")
