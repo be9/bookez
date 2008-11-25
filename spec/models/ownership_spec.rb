@@ -1,12 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe UserAndBook do
+describe Ownership do
   before(:each) do
     @valid_attributes = {
     }
   end
 
   it "should create a new instance given valid attributes" do
-    UserAndBook.create!(@valid_attributes)
+    Ownership.create!(@valid_attributes)
   end
 end

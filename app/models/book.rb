@@ -10,8 +10,8 @@ class Book < ActiveRecord::Base
   has_many :authorships, :dependent => :destroy
   has_many :authors, :through => :authorships, :order => :position
   
-  has_many :user_and_books, :dependent => :destroy
-  has_many :users, :through => :user_and_books
+  has_many :ownerships, :dependent => :destroy
+  has_many :users, :through => :ownerships
 
   def str_authors
     authors.map {|x| x.name} .join ", "
