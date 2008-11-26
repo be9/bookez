@@ -3,7 +3,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :authors
   map.resource :search, :controller => 'search'
   map.resource :homepage
- 
+  map.resources :books do |book|
+    book.resources :ownerships, :controller => 'ownership'
+  end
+
   # Restful Authentication Rewrites
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login '/login', :controller => 'sessions', :action => 'new'
