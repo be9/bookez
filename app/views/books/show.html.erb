@@ -1,15 +1,13 @@
 <% @page_title = h(@book.title) %>
 
-<% unless (users = @book.users).empty? %>
 <p><i>
+<% unless (users = @book.users).empty? %>
   Users who has this book:
   <%=format_users( users ) %>
-</i></p>
 <% else %>
-<p><i>
   Nobody has this book.
-</i></p>
 <% end %>
+</i></p>
 
 <p>
   <b>Title:</b>
