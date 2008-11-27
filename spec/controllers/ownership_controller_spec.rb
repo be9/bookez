@@ -7,13 +7,13 @@ describe OwnershipController do
     [Book, User, Author, Authorship].each { |model| model.delete_all }
   end
 
-  describe "#new" do
+  describe "#create" do
     it "should add new book to user and redirect to book" do
       user = Factory :user
       login_as user
       book = Factory :book
 
-      get :new, :book_id => "#{book.id}"
+      post :create, :book_id => "#{book.id}"
       flash[:notice].should == "You succesfully added book to your library."
       response.should redirect_to(book_url(mock_book))
       user.books.include?( book ).should be_true

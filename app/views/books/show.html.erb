@@ -80,7 +80,7 @@
 <% end %>
 
 <% if current_user and not current_user.books.include?( @book ) %>
-  <%= link_to 'Add to my books', new_book_ownership_path(@book) %>
+  <%= button_to 'Add to my books', book_ownerships_path(@book) %>
 <% else %>
   <%= link_to 'Remove from my books',
         book_ownership_path(@book),
