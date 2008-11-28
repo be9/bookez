@@ -31,7 +31,7 @@ module SearchHelper
   end
 
   def by_params(book_params)
-    smart_search(book_params[:title], :in_titles => true) & smart_search(book_params[:str_authors].gsub(",", " "), :in_authors => true)
+    smart_search(book_params[:title], :in_titles => true) | smart_search(book_params[:str_authors].gsub(",", " "), :in_authors => true)
   end
 
   def search_book(field, str)  
