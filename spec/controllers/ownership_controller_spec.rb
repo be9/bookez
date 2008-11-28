@@ -9,7 +9,7 @@ describe OwnershipController do
 
   describe "#create" do
     it "should add new book to user and redirect to book" do
-      owner = Factory :user
+       owner = Factory :user
       book = Factory :book, :title => "smth", :users => [owner]
 
       user = Factory :user
@@ -19,8 +19,8 @@ describe OwnershipController do
 
       flash[:notice].should == "You succesfully added book to your library."
       response.should redirect_to(book_url(book))
-      user.books.should == [book]
-      book.users.should == [owner, user] # TODO: it fails!
+      user.reload.books.should == [book]
+      book.reload.users.should == [owner, user] # TODO: it fails!
     end
 
     it "should not add repeated book to user and redirect to it" do
@@ -33,8 +33,8 @@ describe OwnershipController do
 
       flash[:notice].should == "You already have this book in your library."
       response.should redirect_to(book_url(book))
-      owner.books.should == [book]
-      book.users.should == [owner]
+      owner.reload.books.should == [book]
+      book.reload.users.should == [owner]
     end
 
     it "should not add book if user is not logged in" do
@@ -44,8 +44,8 @@ describe OwnershipController do
       post :create, :book_id => "#{book.id}"
 
       flash[:notice].should == "You should be logged in for working with books."
-      owner.books.should == [book]
-      book.users.should == [owner]
+      owner.reload.books.should == [book]
+      book.reload.users.should == [owner]
     end
   end
 
@@ -61,9 +61,9 @@ describe OwnershipController do
 
       flash[:notice].should == "You succesfully deleted this book from your library."
       response.should redirect_to(book_url(book))
-      owner1.books.should == [book]
-      owner2.books.should == []
-      book.users.should == [owner1] # TODO: it fails! 
+      owner1.reload.books.should == [book]
+      owner2.reload.books.should == []
+      book.reload.users.should == [owner1] # TODO: it fails! 
     end
 
     it "should not delete book from user if it is not in his library, then redirect to it" do
@@ -76,8 +76,8 @@ describe OwnershipController do
 
       flash[:notice].should == "You don't have this book in your library."
       response.should redirect_to(book_url(book))
-      owner.books.should == [book]
-      book.users.should == [owner]
+      owner.reload.books.should == [book]
+      book.reload.users.should == [owner]
     end
 
     it "should not delete book if user is not logged in" do
@@ -87,8 +87,8 @@ describe OwnershipController do
       delete :destroy, :book_id => "#{book.id}"
 
       flash[:notice].should == "You should be logged in for working with books."
-      owner.books.should == [book]
-      book.users.should == [owner]
+      owner.reload.books.should == [book]
+      book.reload.users.should == [owner]
     end
   end
 end
