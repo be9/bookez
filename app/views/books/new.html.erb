@@ -3,7 +3,8 @@
   @include_js = 'books'
 %>
 
-<% if @similar_books and not @similar_books.empty? %>
+<% has_similar = @similar_books and not @similar_books.empty? %>
+<% if has_similar %>
   <ol class="booklist">
     <%= render :partial => "books/book", :collection => @similar_books %>
   </ol>
@@ -11,6 +12,8 @@
 <% end %>
 
 <% form_for(@book) do |f| %>
+  <%= hidden_field_tag "create_anyway", if has_similar then "true" else "false" end %>
+  
   <%= render :partial => 'fields', :locals => { :f => f }  %>
 
   <p>
