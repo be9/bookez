@@ -18,9 +18,19 @@ class Book < ActiveRecord::Base
   end
 
   def str_authors=(au)
-    authorships.delete_all
-    self.authors = au.split( "," ).map do |x|
-      Author.find_or_create_by_name( x.strip )
+    @str_authors = au
+  end
+  
+  before_save :parse_authors
+
+  private
+
+  def parse_authors
+    if @str_authors
+      authorships.delete_all
+      self.authors = @str_authors.split( "," ).map do |x|
+        Author.find_or_create_by_name( x.strip )
+      end
     end
   end
 end

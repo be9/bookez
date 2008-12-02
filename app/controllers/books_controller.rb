@@ -34,7 +34,8 @@ class BooksController < ApplicationController
       @similar_books = by_params( params[:book] )
       if not @similar_books.empty?
         flash[:notice] = 'Similar books were found in our library, maybe you will better choose one of them.'
-        return render :action => "new"
+        render :action => "new"
+        return
       end
     end
 

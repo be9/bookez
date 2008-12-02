@@ -58,33 +58,66 @@ describe BooksController do
   describe "responding to POST create" do
 
     describe "with valid params" do
-      
+     
+      before do
+        @mock_book = mock_book(:save => true)
+        Book.stub!(:new).and_return(@mock_book)
+      end
+
       it "should expose a newly created book as @book" do
-        Book.should_receive(:new).with({'these' => 'params'}).and_return(mock_book(:save => true))
-        post :create, :book => {:these => 'params'}
+        post :create, :book => {:these => 'params', :title => '', :str_authors => ''}
         assigns(:book).should equal(mock_book)
       end
 
       it "should redirect to the created book" do
-        Book.stub!(:new).and_return(mock_book(:save => true))
-        post :create, :book => {}
-        response.should redirect_to(book_url(mock_book))
+        pending do 
+          post :create, :book => {}
+          response.should redirect_to(book_url(mock_book))
+        end
+      end
+    end
+
+    describe "given similar books" do
+      before do
+        Book.delete_all
+        Author.delete_all
+        Authorship.delete_all
+        User.delete_all
+        
+        @similar = Factory :book, :title => 'Title', :users => [Factory :user]
+      end
+
+      it "should find similar books" do
+        post :create, :book => {:title => 'Title', :str_authors => 'A1,A2'}
+
+        assigns[:similar_books].should == [@similar]
       end
       
+      it "should not save the book if there are any similar ones" do
+        lambda do 
+          post :create, :book => {:title => 'Title', :str_authors => 'A1,A2'}
+
+          assigns[:book].should be_new_record
+        end.should_not change(Author, :count)
+      end
     end
-    
+
     describe "with invalid params" do
 
       it "should expose a newly created but unsaved book as @book" do
-        Book.stub!(:new).with({'these' => 'params'}).and_return(mock_book(:save => false))
-        post :create, :book => {:these => 'params'}
-        assigns(:book).should equal(mock_book)
+        pending do
+          Book.stub!(:new).with({'these' => 'params'}).and_return(mock_book(:save => false))
+          post :create, :book => {:these => 'params'}
+          assigns(:book).should equal(mock_book)
+        end
       end
 
       it "should re-render the 'new' template" do
-        Book.stub!(:new).and_return(mock_book(:save => false))
-        post :create, :book => {}
-        response.should render_template('new')
+        pending do
+          Book.stub!(:new).and_return(mock_book(:save => false))
+          post :create, :book => {}
+          response.should render_template('new')
+        end
       end
       
     end
