@@ -29,7 +29,7 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(params[:book])
 
-    if params[:create_anyway] == "false"
+    if params[:create_anyway] != "true"
       # search
       @similar_books = by_params( params[:book] )
       if not @similar_books.empty?

@@ -2,7 +2,7 @@ module SearchHelper
   def smart_search(query, params)
     # bool params:   in_titles, in_annotations, in_authors
     books_rating = {} # book => rating
-    query.split.each do |word|
+    (query || "").split.each do |word|
       if params[:in_titles] 
         search_book(:title, word).each do |book|
           add_book_by_rating(books_rating, book, 2)
@@ -31,7 +31,8 @@ module SearchHelper
   end
 
   def by_params(book_params)
-    smart_search(book_params[:title], :in_titles => true) | smart_search(book_params[:str_authors].gsub(",", " "), :in_authors => true)
+    smart_search(book_params[:title], :in_titles => true) |
+      smart_search((book_params[:str_authors] || "").gsub(",", " "), :in_authors => true)
   end
 
   def search_book(field, str)  

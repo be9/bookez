@@ -70,10 +70,8 @@ describe BooksController do
       end
 
       it "should redirect to the created book" do
-        pending do 
-          post :create, :book => {}
-          response.should redirect_to(book_url(mock_book))
-        end
+        post :create, :book => {}
+        response.should redirect_to(book_url(mock_book))
       end
     end
 
@@ -84,7 +82,7 @@ describe BooksController do
         Authorship.delete_all
         User.delete_all
         
-        @similar = Factory :book, :title => 'Title', :users => [Factory :user]
+        @similar = Factory :book, :title => 'Title'
       end
 
       it "should find similar books" do
@@ -105,19 +103,15 @@ describe BooksController do
     describe "with invalid params" do
 
       it "should expose a newly created but unsaved book as @book" do
-        pending do
-          Book.stub!(:new).with({'these' => 'params'}).and_return(mock_book(:save => false))
-          post :create, :book => {:these => 'params'}
-          assigns(:book).should equal(mock_book)
-        end
+        Book.stub!(:new).with({'these' => 'params'}).and_return(mock_book(:save => false))
+        post :create, :book => {:these => 'params'}
+        assigns(:book).should equal(mock_book)
       end
 
       it "should re-render the 'new' template" do
-        pending do
-          Book.stub!(:new).and_return(mock_book(:save => false))
-          post :create, :book => {}
-          response.should render_template('new')
-        end
+        Book.stub!(:new).and_return(mock_book(:save => false))
+        post :create, :book => {}
+        response.should render_template('new')
       end
       
     end
