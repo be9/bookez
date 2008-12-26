@@ -84,4 +84,16 @@
         book_ownership_path(@book),
         :method => :delete %>
 <% end %>
+
+<ol class="commentlist">
+  <%= render :partial => 'book_comments/comment', :collection => @book.comments %>
+</ol>
+
+<% form_for [@book, @comment] do |f| %>
+  <h2>Leave a comment</h2>
+  <p><%= f.label "Title: " %><%= f.text_field :title %></p>
+  <p><%= f.text_area :comment %></p>
+  <p><%= f.submit "Leave comment" %></p>
+<% end %>
+
 <%= link_to 'Back', books_path %>

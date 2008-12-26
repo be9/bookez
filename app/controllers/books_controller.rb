@@ -9,6 +9,7 @@ class BooksController < ApplicationController
 
   # GET /books/1
   def show
+    @comment = Comment.new
   end
 
   # GET /books/new

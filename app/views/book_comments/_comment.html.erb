@@ -1,0 +1,9 @@
+<li>
+<div class="post">
+  <h2 class="title"><%= h comment.title %></h2>
+  <p class="meta">Posted by <%= link_to_user( comment.user ) %> on <%= comment.created_at.strftime "%B %d, %Y" %></p>
+  <div class="entry">
+    <p><%= h comment.comment %></p>
+  </div>
+</li>
+

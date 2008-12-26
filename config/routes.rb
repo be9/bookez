@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :homepage
   map.resources :books do |book|
     book.resources :ownerships, :controller => 'ownership'
+    book.resources :comments, :controller => 'book_comments'
   end
 
   # Restful Authentication Rewrites
