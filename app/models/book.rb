@@ -1,4 +1,6 @@
 class Book < ActiveRecord::Base
+  acts_as_commentable
+
   validates_presence_of :title
 
   validates_isbn :isbn, :allow_blank => true

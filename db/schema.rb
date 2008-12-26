@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081125094619) do
+ActiveRecord::Schema.define(:version => 20081226085651) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
@@ -39,6 +39,17 @@ ActiveRecord::Schema.define(:version => 20081125094619) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "comments", :force => true do |t|
+    t.string   "title",            :limit => 50, :default => ""
+    t.string   "comment",                        :default => ""
+    t.datetime "created_at",                                     :null => false
+    t.integer  "commentable_id",                 :default => 0,  :null => false
+    t.string   "commentable_type", :limit => 15, :default => "", :null => false
+    t.integer  "user_id",                        :default => 0,  :null => false
+  end
+
+  add_index "comments", ["user_id"], :name => "fk_comments_user"
 
   create_table "open_id_authentication_associations", :force => true do |t|
     t.integer "issued"
