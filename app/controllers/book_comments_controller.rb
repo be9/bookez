@@ -1,8 +1,9 @@
 class BookCommentsController < ApplicationController
   def create
-    book = Book.find(params[:book_id])
-    params[:comment][:user] = current_user
-    book.add_comment( Comment.new(params[:comment]) )
+    book = Book.find( params[:book_id] )
+    comment = book.comments.build( params[:comment] )
+    comment.user = current_user
+    comment.save
     redirect_to book_path(book)
   end
 
