@@ -5,7 +5,7 @@ include AuthenticatedTestHelper
 
 describe UsersHelper do
   before do
-    @user = mock_user
+    @user = mock_user :[] => 1
   end
   
   describe "if_authorized" do 

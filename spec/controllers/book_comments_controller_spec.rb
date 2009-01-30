@@ -6,12 +6,4 @@ describe BookCommentsController do
   it "should use BookCommentsController" do
     controller.should be_an_instance_of(BookCommentsController)
   end
-
-
-  describe "GET 'create'" do
-    it "should be successful" do
-      get 'create'
-      response.should be_success
-    end
-  end
 end
