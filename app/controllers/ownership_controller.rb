@@ -1,6 +1,6 @@
 class OwnershipController < ApplicationController
   before_filter :find_book
-  before_filter :login_required
+  before_filter :require_user
   
   def create
     if current_user.books.include? @book
@@ -27,10 +27,10 @@ class OwnershipController < ApplicationController
     @book = Book.find( params[:book_id] )
   end
 
-  def login_required
+  def require_user
     unless current_user
       flash[:notice] = 'You should be logged in for working with books.'
-      redirect_to :controller => 'sessions', :action => 'new'
+      redirect_to new_session_url
     end
   end
 end
