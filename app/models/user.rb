@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
     
   has_many :ownerships, :dependent => :destroy
   has_many :books, :through => :ownerships
+
+  has_many :rates
     
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation

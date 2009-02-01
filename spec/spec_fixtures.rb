@@ -35,3 +35,9 @@ end
 Factory.define :author do |a|
   a.name        { Factory.next :authorname }     
 end
+
+Factory.define :rate do |r|
+  r.association :user, :factory => :user
+  r.association :book, :factory => :book
+  r.value   4
+end

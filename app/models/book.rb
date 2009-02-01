@@ -13,6 +13,12 @@ class Book < ActiveRecord::Base
   has_many :ownerships, :dependent => :destroy
   has_many :users, :through => :ownerships
 
+  has_many :rates
+
+  def rating
+    rates.empty? ? (0.0) : (Rate.average :value, :conditions => {:book_id => id})
+  end
+
   def str_authors
     authors.map {|x| x.name} .join ", "
   end

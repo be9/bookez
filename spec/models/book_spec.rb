@@ -50,4 +50,24 @@ describe Book do
 
     @book.authors.map(&:name).join(' ').should == "Bnuth Knuth Pruth"
   end   
+
+  describe "rating" do
+    before do
+      Rate.delete_all
+    end
+
+    it "should return 0.0 if nobody rated this book" do
+      b = Factory.build :book
+      b.rating.should == 0.0
+    end
+
+    it "should return avarage value of all rates for this book" do
+      b = Factory.build( :book )
+      Factory.build( :rate, :book => b, :value => 1 ).save
+      Factory.build( :rate, :book => b, :value => 3 ).save
+      Factory.build( :rate, :book => b, :value => 3 ).save
+      Factory.build( :rate, :book => b, :value => 10 ).save
+      b.rating.should == 4.25
+    end
+  end
 end
