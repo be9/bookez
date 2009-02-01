@@ -49,5 +49,13 @@ describe Rate do
     Factory.build(:rate, :user => another_user, :book => book).save
     Factory.build(:rate, :user => user, :book => book).should be_valid
   end
-  
+
+  it "should be saved after updating" do
+    user = Factory.build :user
+    book = Factory.build :book
+    Factory.build(:rate, :user => user, :book => book).save
+    rate = Rate.find_by_user_id_and_book_id user, book
+    rate.value = 10
+    rate.save.should be_true
+  end
 end

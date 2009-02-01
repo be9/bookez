@@ -70,4 +70,22 @@ describe Book do
       b.rating.should == 4.25
     end
   end
+
+  describe "rated_by_user?" do
+    it "should return false if got nil" do
+      Factory.build( :book ).rated_by_user?( nil ).should be_false
+    end
+
+    it "should return false if user did not rated book" do
+      user = Factory.build :user
+      Factory.build( :book ).rated_by_user?( user ).should be_false
+    end
+
+    it "should return true if user rated book" do
+      user = Factory.build :user
+      book = Factory.build :book
+      Factory.build( :rate, :user => user, :book => book ).save
+      book.rated_by_user?( user ).should be_true
+    end
+  end
 end

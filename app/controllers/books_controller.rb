@@ -65,6 +65,20 @@ class BooksController < ApplicationController
     redirect_to books_url
   end
 
+  # POST /books/1/rating
+  def rating
+    rate = Rate.find_or_initialize_by_book_id_and_user_id @book.id, current_user.id
+    rate.value = params[:rate][:value]
+    
+    if rate.save
+      flash[:notice] = "Your rate was taken into account."
+    else
+      pp rate.errors
+      flash[:error] = "Sorry, rate this book one more time, please."
+    end
+    redirect_to book_url( @book )
+  end
+
   private
 
   def require_user

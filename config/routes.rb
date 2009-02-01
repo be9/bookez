@@ -1,5 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :books
   map.resources :authors
   map.resource :search, :controller => 'search'
   map.resource :homepage
@@ -7,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
     book.resources :ownerships, :controller => 'ownership'
     book.resources :comments, :controller => 'book_comments'
   end
+  map.book_rating "books/:id/rating", :controller => 'books', :action => 'rating'
 
   # Restful Authentication Rewrites
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'

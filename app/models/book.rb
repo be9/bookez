@@ -19,6 +19,11 @@ class Book < ActiveRecord::Base
     rates.empty? ? (0.0) : (Rate.average :value, :conditions => {:book_id => id})
   end
 
+  def rated_by_user?(user)
+    return false unless user
+    Rate.count( :conditions => {:book_id => id, :user_id => user.id} ) != 0
+  end
+
   def str_authors
     authors.map {|x| x.name} .join ", "
   end

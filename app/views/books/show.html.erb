@@ -9,6 +9,8 @@
 <% end %>
 </i></p>
 
+<%= render :partial => "books/rating", :locals => { :book => @book } %>
+
 <p>
   <b>Title:</b>
   <%=h @book.title %>
