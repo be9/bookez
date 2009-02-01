@@ -30,7 +30,7 @@ class OwnershipController < ApplicationController
   def require_user
     unless current_user
       flash[:notice] = 'You should be logged in for working with books.'
-      redirect_to new_session_url
+      redirect_to login_url
     end
   end
 end

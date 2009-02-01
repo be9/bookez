@@ -84,7 +84,7 @@ class BooksController < ApplicationController
   def require_user
     unless current_user
       flash[:notice] = 'You should be logged in for creating books.'
-      redirect_to new_session_url
+      redirect_to login_url
     end
   end
 

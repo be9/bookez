@@ -29,7 +29,7 @@ describe BooksController do
   describe "responding to GET new" do
   
     it "should expose a new book as @book if you are logged in" do
-      pending
+      login_as Factory :user
 
       Book.should_receive(:new).and_return(mock_book)
       get :new
@@ -37,11 +37,9 @@ describe BooksController do
     end
 
     it "should not expose a new book if you are not logged in" do
-      pending
-
-      Book.should_receive(:new).and_return(mock_book)
       get :new
-      assigns[:book].should equal(mock_book)
+      assigns[:book].should be_nil
+      response.should redirect_to( login_url )
     end
   end
 
@@ -49,6 +47,7 @@ describe BooksController do
   
     it "should expose the requested book as @book" do
       Book.should_receive(:find).with("37").and_return(mock_book)
+      login_as Factory :user
       get :edit, :id => "37"
       assigns[:book].should equal(mock_book)
     end
@@ -56,12 +55,16 @@ describe BooksController do
   end
 
   describe "responding to POST create" do
+    before do
+    end
 
     describe "with valid params" do
      
       before do
-        @mock_book = mock_book(:save => true)
+        @mock_book = mock_book(:save => true, :users => [])
         Book.stub!(:new).and_return(@mock_book)
+
+        login_as Factory :user
       end
 
       it "should expose a newly created book as @book" do
@@ -81,6 +84,8 @@ describe BooksController do
         Author.delete_all
         Authorship.delete_all
         User.delete_all
+      
+        login_as Factory :user
         
         @similar = Factory :book, :title => 'Title'
       end
@@ -101,15 +106,18 @@ describe BooksController do
     end
 
     describe "with invalid params" do
+      before do
+        login_as Factory :user
+      end
 
       it "should expose a newly created but unsaved book as @book" do
-        Book.stub!(:new).with({'these' => 'params'}).and_return(mock_book(:save => false))
+        Book.stub!(:new).with({'these' => 'params'}).and_return(mock_book(:save => false, :users => []))
         post :create, :book => {:these => 'params'}
         assigns(:book).should equal(mock_book)
       end
 
       it "should re-render the 'new' template" do
-        Book.stub!(:new).and_return(mock_book(:save => false))
+        Book.stub!(:new).and_return(mock_book(:save => false, :users => []))
         post :create, :book => {}
         response.should render_template('new')
       end
@@ -119,6 +127,9 @@ describe BooksController do
   end
 
   describe "responding to PUT udpate" do
+    before do
+      login_as Factory :user
+    end
 
     describe "with valid params" do
 
@@ -167,6 +178,9 @@ describe BooksController do
   end
 
   describe "responding to DELETE destroy" do
+    before do
+      login_as Factory :user
+    end
 
     it "should destroy the requested book" do
       Book.should_receive(:find).with("37").and_return(mock_book)
