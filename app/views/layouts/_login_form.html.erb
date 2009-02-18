@@ -1,3 +1,4 @@
+<%# it's deprecated, will be removed with restfull auth %>
 <% form_tag session_path do %>
 		<ol class="login">
 			<li>
@@ -14,7 +15,7 @@
 			</li>
 		</ol>
 	<div class="buttons">
-		<%= submit_tag 'Login' %>
-		<%= link_to 'Forgotten Password', forgot_password_path %>
+      <%= submit_tag 'Вход' %><br/>
+      <%= link_to 'Зарегистрироваться', signup_url %>
 	</div>
 <% end -%>

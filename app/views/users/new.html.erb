@@ -1,12 +1,14 @@
+<%
+  @page_title = 'Регистрация'
+%>
 <% @user.password = @user.password_confirmation = nil %>
-<%= title "Signup", :h2 %>
 <% form_for @user do |f| %>
 	<%= f.error_messages %>
 	<fieldset>
-		<legend>Your Details</legend>
+		<legend>Ваши данные</legend>
 		<ol>
 			<li>
-				<%= f.label :login, 'Username' %>
+				<%= f.label :login %>
 				<%= f.text_field :login %>
 			</li>
 			<li>
@@ -18,21 +20,10 @@
 				<%= f.password_field :password %>
 			</li>
 			<li>
-				<%= f.label :password_confirmation, 'Confirm Password' %>
+				<%= f.label :password_confirmation %>
 				<%= f.password_field :password_confirmation %>
 			</li>
 		</ol>
 	</fieldset>
-	<fieldset>
-		<legend>Signup with OpenID</legend>
-		<ol>
-			<li>
-				<label for="openid_url">OpenID URL</label>
-				<%= text_field_tag :openid_url, params[:openid_url] || params['openid.identity'] %>
-			</li>
-		</ol>
-	</fieldset>
-	<div class="buttons">
-		<%= submit_tag 'Sign up' %>
-	</div>
+	<%= f.submit 'Зарегистрироваться' %>
 <% end %>

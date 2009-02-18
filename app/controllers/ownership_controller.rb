@@ -4,20 +4,20 @@ class OwnershipController < ApplicationController
   
   def create
     if current_user.books.include? @book
-      flash[:notice] = "You already have this book in your library."
+      flash[:notice] = "Эта книга уже есть в вашей библиотеке"
     else
       current_user.books << @book 
-      flash[:notice] = "You succesfully added book to your library."
+      flash[:notice] = "Вы успешно добавили книгу в свою библиотеку"
     end
     redirect_to @book
   end
 
   def destroy
     unless current_user.books.include? @book
-      flash[:notice] = "You don't have this book in your library."
+      flash[:notice] = "У вас нет такой книги"
     else
       Ownership.find(:first, :conditions => "book_id = #{@book.id} AND user_id = #{current_user.id}").destroy
-      flash[:notice] = "You succesfully deleted this book from your library."
+      flash[:notice] = "Книга удалена из вашей библиотеки"
     end
     redirect_to @book
   end
@@ -29,7 +29,7 @@ class OwnershipController < ApplicationController
 
   def require_user
     unless current_user
-      flash[:notice] = 'You should be logged in for working with books.'
+      flash[:notice] = 'Вы должны войти, чтобы получить доступ к этой странице.'
       redirect_to login_url
     end
   end

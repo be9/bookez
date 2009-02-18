@@ -1,5 +1,5 @@
 <% form_for :rate, :url => book_rating_url(book) do |f| %>
-  <%= f.label :value, "Current rating is #{book.rating}" %>
+  <%= f.label :value, "Рейтинг: #{book.rating}" %>
   <%= f.select :value, 1..10 %>
-  <%= f.submit book.rated_by_user?(current_user) ? "Overrate it!" : "Rate it!" %>
+  <%= f.submit book.rated_by_user?(current_user) ? "Оценить заново!" : "Оценить!" %>
 <% end %>

@@ -1,5 +1,5 @@
 <%
-  @page_title = 'Editing book'
+  @page_title = 'Редактирование книги'
   @include_js = 'books'
 %>
 
@@ -8,9 +8,9 @@
   <%= render :partial => 'fields', :locals => { :f => f }  %>
 
   <p>
-    <%= f.submit "Update" %>
+    <%= f.submit "Обновить" %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @book %> |
-<%= link_to 'Back', books_path %>
+<%= link_to 'Показать', @book %> |
+<%= link_to 'Назад', books_path %>

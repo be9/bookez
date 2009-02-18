@@ -32,7 +32,8 @@ class BooksController < ApplicationController
       # search
       @similar_books = by_params( params[:book] )
       unless @similar_books.empty?
-        flash[:notice] = 'Similar books were found in our library, maybe you will better choose one of them.'
+        flash[:notice] =  'Похожие книги были найдены в нашей библиотеке.'
+        flash[:notice] << 'Может быть вы имели ввиду одну из них?'
         render :action => "new"
         return
       end
@@ -41,7 +42,7 @@ class BooksController < ApplicationController
     @book.users << current_user
 
     if @book.save
-      flash[:notice] = 'Book was successfully created.'
+      flash[:notice] = 'Книги была успешно добавлена.'
       redirect_to book_url( @book )
     else
       render :action => "new"
@@ -51,7 +52,7 @@ class BooksController < ApplicationController
   # PUT /books/1
   def update
     if @book.update_attributes(params[:book])
-      flash[:notice] = 'Book was successfully updated.'
+      flash[:notice] = 'Книга была успешно обновлена.'
       redirect_to book_url( @book )
     else
       render :action => "edit"
@@ -71,10 +72,10 @@ class BooksController < ApplicationController
     rate.value = params[:rate][:value]
     
     if rate.save
-      flash[:notice] = "Your rate was taken into account."
+      flash[:notice] = "Ваша оценка учтена."
     else
       pp rate.errors
-      flash[:error] = "Sorry, rate this book one more time, please."
+      flash[:error] = "Извините, произошла ошибка, повторите оценку."
     end
     redirect_to book_url( @book )
   end
@@ -83,7 +84,7 @@ class BooksController < ApplicationController
 
   def require_user
     unless current_user
-      flash[:notice] = 'You should be logged in for creating books.'
+      flash[:notice] = 'Вы должны войти, чтобы получить доступ к этой странице.'
       redirect_to login_url
     end
   end

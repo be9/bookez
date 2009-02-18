@@ -1,3 +1,4 @@
+# TODO: move this from helpers
 module SearchHelper
   def smart_search(query, params)
     # bool params:   in_titles, in_annotations, in_authors

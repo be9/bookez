@@ -25,10 +25,10 @@
       </div>
       <div id="menu">
         <ul>
-          <li class="current_page_item"><a href="/">homepage</a></li>
-          <li><a href="/users">users</a></li>
-          <li><a href="/books">books</a></li>
-          <li><a href="/search">search</a></li>
+          <li><a href="/">главная</a></li>
+          <li><a href="/users">пользователи</a></li>
+          <li><a href="/books">книги</a></li>
+          <li><a href="/search">поиск</a></li>
         </ul>
       </div>
     </div>
@@ -39,7 +39,7 @@
       <div id="content">
         <!-- start latest-post -->
         <div id="latest-post" class="post">
-          <h1 class="title"><%= @page_title || "Welcome to Bookez!"%></h1>
+          <h1 class="title"><%= @page_title || "Добро пожаловать!" %></h1>
           <p class="meta">
             Made with Ruby on Rails
           </p>
@@ -50,14 +50,14 @@
         <!-- start recent-posts -->
         <div id="recent-posts">
           <% unless logged_in? %>
-            <div><h1>Login</h1></div>
+            <div><h1>Вход</h1></div>
             <%= render :partial => 'layouts/login_form' %>
           <% else %>
-            <div><h1><%= "Hi, you are logged in as <b>#{h(current_user.login)}</b>"%></h1></div>
+            <div><h1><%= "Привет! Вы вошли как <b>#{h(current_user.login)}</b>"%></h1></div>
             <ul>
-              <li><%= link_to_current_user :content_text => 'Your home page' %>
-              <li><%= link_to "Add new book", :controller => :books, :action => :new %>
-              <li><%= link_to "Logout", :controller => 'sessions', :action => 'destroy' %>
+              <li><%= link_to_current_user :content_text => 'Ваша библиотека' %>
+              <li><%= link_to "Добавить новую книгу", :controller => :books, :action => :new %>
+              <li><%= link_to "Выйти", :controller => 'sessions', :action => 'destroy' %>
             </ul>
           <% end %>
         </div>

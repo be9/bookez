@@ -13,7 +13,7 @@ class BookCommentsController < ApplicationController
 
   def require_user
     unless current_user
-      flash[:notice] = 'You should be logged in for leaving comments.'
+      flash[:notice] = 'Вы должны войти, чтобы оставлять комментарии.'
       redirect_to login_url
     end
   end

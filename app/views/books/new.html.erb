@@ -1,5 +1,5 @@
 <% 
-  @page_title = 'New book'
+  @page_title = 'Добавление книги'
   @include_js = 'books'
 %>
 
@@ -8,7 +8,7 @@
   <ol class="booklist">
     <%= render :partial => "books/book", :collection => @similar_books %>
   </ol>
-  <h3>If you anyway want to add your book submit form one more time.</h3>
+  <h3>Если вы все равно хотите добавить новую книгу подтвердите форму еще раз.</h3>
 <% end %>
 
 <% form_for(@book) do |f| %>
@@ -17,8 +17,8 @@
   <%= render :partial => 'fields', :locals => { :f => f }  %>
 
   <p>
-    <%= f.submit "Create" %>
+    <%= f.submit "Добавить" %>
   </p>
 <% end %>
 
-<%= link_to 'Back', books_path %>
+<%= link_to 'Назад', books_path %>

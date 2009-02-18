@@ -2,87 +2,87 @@
 
 <p><i>
 <% unless (users = @book.users).empty? %>
-  Users who has this book:
+  Владельцы книги:
   <%=format_users( users ) %>
 <% else %>
-  Nobody has this book.
+  пока нету.
 <% end %>
 </i></p>
 
 <%= render :partial => "books/rating", :locals => { :book => @book } %>
 
 <p>
-  <b>Title:</b>
+  <b>Заголовок:</b>
   <%=h @book.title %>
 </p>
 
 <% unless (s = @book.str_authors).empty? %>
 <p>
-  <b>Authors:</b>
+  <b>Авторы:</b>
   <%=format_authors(@book.authors) %>
 </p>
 <% end %>
 
 <% unless (s = @book.publisher).empty? %>
 <p>
-  <b>Publisher:</b>
+  <b>Издательство:</b>
   <%=h s %>
 </p>
 <% end %>
 
 <% unless (s = @book.year).nil? %>
 <p>
-  <b>Year:</b>
+  <b>Год:</b>
   <%=h s %>
 </p>
 <% end %>
 
 <% unless (s = @book.isbn).empty? %>
 <p>
-  <b>Isbn:</b>
+  <b>ISBN:</b>
   <%=h s %>
 </p>
 <% end %>
 
 <% unless (s = @book.pages).nil? %>
 <p>
-  <b>Pages:</b>
+  <b>Кол-во страниц:</b>
   <%=h s %>
 </p>
 <% end %>
 
 <% unless (s = @book.orig_title).empty? %>
 <p>
-  <b>Orig title:</b>
+  <b>Оригинальное название:</b>
   <%=h s %>
 </p>
 <% end %>
 
 <% unless (s = @book.annotation).empty? %>
 <p>
-  <b>Annotation:</b>
+  <b>Аннотация:</b>
   <%=h s %>
 </p>
 <% end %>
 
 <% unless (s = @book.circulation).nil? %>
 <p>
-  <b>Circulation:</b>
+  <b>Тирах:</b>
   <%=h s %>
 </p>
 <% end %>
 
 <% unless (s = @book.series).empty? %>
 <p>
-  <b>Series:</b>
+  <b>Серия:</b>
   <%=h s %>
 </p>
 <% end %>
 
 <% if current_user and not current_user.books.include?( @book ) %>
-  <%= button_to 'Add to my books', book_ownerships_path(@book) %>
+  <%= button_to 'Добавить в мою библиотеку', book_ownerships_path(@book) %>
 <% else %>
-  <%= link_to 'Remove from my books',
+  <%= link_to 'Убрать из моей библиотеки',
         book_ownership_path(@book),
         :method => :delete %>
 <% end %>
@@ -92,10 +92,10 @@
 </ol>
 
 <% form_for [@book, @comment] do |f| %>
-  <h2>Leave a comment</h2>
-  <p><%= f.label "Title: " %><%= f.text_field :title %></p>
-  <p><%= f.text_area :comment %></p>
-  <p><%= f.submit "Leave comment" %></p>
+  <h2>Оставить комментарий</h2>
+  <p><%= f.label "Заголовок: " %><%= f.text_field :title %></p>
+  <p><%= f.text_area :comment, :rows => 3 %></p>
+  <p><%= f.submit "Отправить" %></p>
 <% end %>
 
-<%= link_to 'Back', books_path %>
+<%= link_to 'Назад', books_path %>
