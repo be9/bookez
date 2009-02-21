@@ -7,6 +7,10 @@ module ApplicationHelper
     @page_title = str
     content_tag(container, str) if container
   end
+
+  def link_to_current_user(options)
+    link_to current_user.login, current_user, options if current_user
+  end
   
   # Outputs the corresponding flash message if any are set
   def flash_messages

@@ -1,8 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe OwnershipController do
-  include AuthenticatedTestHelper
-
   before do
     [Book, User, Ownership].each { |model| model.delete_all }
   end

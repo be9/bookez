@@ -25,10 +25,10 @@
       </div>
       <div id="menu">
         <ul>
-          <li><a href="/">главная</a></li>
-          <li><a href="/users">пользователи</a></li>
-          <li><a href="/books">книги</a></li>
-          <li><a href="/search">поиск</a></li>
+          <li><%= link_to "главная", root_url %></li>
+          <li><%= link_to "пользователи", users_url %></li>
+          <li><%= link_to "книги", books_url %></li>
+          <li><%= link_to "поиск", search_url %></li>
         </ul>
       </div>
     </div>
@@ -49,15 +49,18 @@
         <!-- end latest-post -->
         <!-- start recent-posts -->
         <div id="recent-posts">
-          <% unless logged_in? %>
-            <div><h1>Вход</h1></div>
-            <%= render :partial => 'layouts/login_form' %>
+          <% unless current_user %>
+            <div><h1><%= "Привет! Вы не вошли на сайт"%></h1></div>
+            <ul>
+              <li><%= link_to "Войти", login_url %>
+              <li><%= link_to "Зарегистрироваться", signup_url %>
+            </ul>
           <% else %>
             <div><h1><%= "Привет! Вы вошли как <b>#{h(current_user.login)}</b>"%></h1></div>
             <ul>
               <li><%= link_to_current_user :content_text => 'Ваша библиотека' %>
-              <li><%= link_to "Добавить новую книгу", :controller => :books, :action => :new %>
-              <li><%= link_to "Выйти", :controller => 'sessions', :action => 'destroy' %>
+              <li><%= link_to "Добавить новую книгу", new_book_url %>
+              <li><%= link_to "Выйти", logout_url %>
             </ul>
           <% end %>
         </div>
@@ -134,14 +137,3 @@
 
 	</body>
 </html>
-
-<% if false %>
-				<ul>
-					<% if logged_in? %>
-					<li><%= link_to 'Logout', logout_path %></li>
-					<% else %>
-					<li><%= link_to 'Login', login_path %></li>
-					<li><%= link_to 'Signup', signup_path %></li>
-					<% end %>
-				</ul>
-<% end %>

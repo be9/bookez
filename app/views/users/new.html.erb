@@ -1,29 +1,31 @@
 <%
   @page_title = 'Регистрация'
 %>
-<% @user.password = @user.password_confirmation = nil %>
-<% form_for @user do |f| %>
-	<%= f.error_messages %>
-	<fieldset>
-		<legend>Ваши данные</legend>
-		<ol>
-			<li>
-				<%= f.label :login %>
-				<%= f.text_field :login %>
-			</li>
-			<li>
-				<%= f.label :email %>
-				<%= f.text_field :email %>
-			</li>
-			<li>
-				<%= f.label :password %>
-				<%= f.password_field :password %>
-			</li>
-			<li>
-				<%= f.label :password_confirmation %>
-				<%= f.password_field :password_confirmation %>
-			</li>
-		</ol>
-	</fieldset>
-	<%= f.submit 'Зарегистрироваться' %>
+
+<% form_for @user, :url => signup_url do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :login %><br/>
+    <%= f.text_field :login %>
+  </p>
+
+  <p>
+    <%= f.label :email %><br/>
+    <%= f.text_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :password %><br/>
+    <%= f.password_field :password %>
+  </p>
+
+  <p>
+    <%= f.label :password_confirmation %><br/>
+    <%= f.password_field :password_confirmation %>
+  </p>
+
+  <p>
+    <%= f.submit "Зарегистрироваться" %>
+  </p>
 <% end %>
