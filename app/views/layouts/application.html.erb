@@ -58,7 +58,7 @@
           <% else %>
             <div><h1><%= "Привет! Вы вошли как <b>#{h(current_user.login)}</b>"%></h1></div>
             <ul>
-              <li><%= link_to_current_user :content_text => 'Ваша библиотека' %>
+              <li><%= link_to_current_user :content => 'Ваша библиотека' %>
               <li><%= link_to "Добавить новую книгу", new_book_url %>
               <li><%= link_to "Выйти", logout_url %>
             </ul>

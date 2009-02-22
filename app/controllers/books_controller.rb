@@ -74,7 +74,6 @@ class BooksController < ApplicationController
     if rate.save
       flash[:notice] = "Ваша оценка учтена."
     else
-      pp rate.errors
       flash[:error] = "Извините, произошла ошибка, повторите оценку."
     end
     redirect_to book_url( @book )

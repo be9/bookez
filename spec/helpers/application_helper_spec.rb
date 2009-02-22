@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe ApplicationHelper do
+  include ApplicationHelper
   
   describe "title" do
     it "should set @page_title" do

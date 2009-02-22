@@ -5,7 +5,7 @@ module UsersHelper
   end
 
   def link_to_current_user(options)
-    link_to current_user.login, current_user, options if current_user
+    link_to_user current_user, options if current_user
   end
 
   def link_to_user(user, params={})

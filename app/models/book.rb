@@ -3,7 +3,9 @@ class Book < ActiveRecord::Base
 
   validates_presence_of :title
 
-  validates_isbn :isbn, :allow_blank => true
+  validates_isbn :isbn, :allow_blank => true,
+    :message => "имеет неверный формат"
+
 
   validates_numericality_of :year, :pages, :circulation, :only_integer => true, :greater_than => 0, :allow_nil => true
 
@@ -25,12 +27,14 @@ class Book < ActiveRecord::Base
   end
 
   def str_authors
-    authors.map {|x| x.name} .join ", "
+    if @str_authors
+      @str_authors
+    else
+      authors.map {|x| x.name} .join ", "
+    end
   end
 
-  def str_authors=(au)
-    @str_authors = au
-  end
+  attr_writer :str_authors
   
   before_save :parse_authors
 
