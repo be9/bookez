@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090221152329) do
+ActiveRecord::Schema.define(:version => 20090222062800) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
@@ -51,32 +51,9 @@ ActiveRecord::Schema.define(:version => 20090221152329) do
 
   add_index "comments", ["user_id"], :name => "fk_comments_user"
 
-  create_table "open_id_authentication_associations", :force => true do |t|
-    t.integer "issued"
-    t.integer "lifetime"
-    t.string  "handle"
-    t.string  "assoc_type"
-    t.binary  "server_url"
-    t.binary  "secret"
-  end
-
-  create_table "open_id_authentication_nonces", :force => true do |t|
-    t.integer "timestamp",  :null => false
-    t.string  "server_url"
-    t.string  "salt",       :null => false
-  end
-
   create_table "ownerships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "book_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "passwords", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "reset_code"
-    t.datetime "expiration_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -88,25 +65,6 @@ ActiveRecord::Schema.define(:version => 20090221152329) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "roles", :force => true do |t|
-    t.string "name"
-  end
-
-  create_table "roles_users", :id => false, :force => true do |t|
-    t.integer "role_id"
-    t.integer "user_id"
-  end
-
-  create_table "sessions", :force => true do |t|
-    t.string   "session_id", :null => false
-    t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
-  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
 
   create_table "users", :force => true do |t|
     t.string   "login"
