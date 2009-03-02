@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090222062800) do
+ActiveRecord::Schema.define(:version => 20090302165003) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
@@ -56,6 +56,27 @@ ActiveRecord::Schema.define(:version => 20090222062800) do
     t.integer  "book_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "ozon_books", :force => true do |t|
+    t.string   "name"
+    t.string   "author"
+    t.string   "url"
+    t.integer  "price"
+    t.string   "currence"
+    t.string   "picture"
+    t.string   "publisher"
+    t.integer  "year"
+    t.string   "ISBN"
+    t.integer  "page_extent"
+    t.string   "binding"
+    t.text     "description"
+    t.string   "series"
+    t.string   "delivery"
+    t.string   "ordering"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "ozon_id"
   end
 
   create_table "rates", :force => true do |t|
