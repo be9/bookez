@@ -7,7 +7,7 @@ development: &dev
 
 test:
   <<: *dev
-  database: bookez_dev
+  database: bookez_test
 
 production:
   <<: *dev
