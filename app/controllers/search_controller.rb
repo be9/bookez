@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
-  include SearchHelper
+  include Search
 
   def show
   end
@@ -26,27 +26,6 @@ class SearchController < ApplicationController
       params[:limit] ||= 30
 
       render :text => search_author( author.strip )[0, params[:limit].to_i].map { |x| "#{static}#{x.name}" }.join("\n")
-    else
-      render :text => "XHR only", :status => 403
-    end
-  end
-
-
-
-  def by_isbn_local
-    by_isbn Book
-  end
-
-  def by_isbn_ozon
-    by_isbn OzonBook
-  end
-
-  private
-  def by_isbn(model)
-    if request.xhr?
-      books = model.find :all, :conditions => ["isbn like ?", params[:q] + "%"]
-
-      render :text => books.map { |b| b.title }.join( "\n" )
     else
       render :text => "XHR only", :status => 403
     end

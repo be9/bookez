@@ -17,6 +17,15 @@ class Book < ActiveRecord::Base
 
   has_many :rates
 
+  def self.new_from_ozon(ozon_book)
+    book = Book.new
+    OzonBook::PARAMS.each do |bookez, ozon|
+      val = ozon_book.send ozon
+      book.send( "#{bookez}=", val ) if val
+    end
+    book
+  end
+
   def rating
     rates.empty? ? (0.0) : (Rate.average :value, :conditions => {:book_id => id})
   end

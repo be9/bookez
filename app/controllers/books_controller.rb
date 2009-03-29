@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
-  include SearchHelper
+  include Search
 
-  before_filter :find_book, :except => [:index, :new, :create]
+  before_filter :find_book, :except => [:index, :new, :new_ozon, :create]
 
   before_filter :require_user, :except => [:index, :show]
 
@@ -10,6 +10,10 @@ class BooksController < ApplicationController
     @books = Book.find :all
   end
 
+#  page.insert_html :bottom, 'code', @found_books.map(&:title)
+#  page.visual_effect :highlight, 'code'
+#  page["#results"].effect :fade
+#  page["results"].update :bottom, "blah"
   # GET /books/1
   def show
     @comment = Comment.new
@@ -17,7 +21,18 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
-    @book = Book.new
+    if params[:manual]
+      @book = Book.new
+      render :template => 'books/new'
+    else
+      if params[:ozon_id]
+        @book = Book.new_from_ozon OzonBook.find( params[:ozon_id] )
+        render :template => 'books/new'
+      else
+        @book = Book.new
+        render :template => 'books/new_by_isbn'
+      end
+    end
   end
 
   # GET /books/1/edit
@@ -28,25 +43,36 @@ class BooksController < ApplicationController
   def create
     @book = Book.new params[:book]
 
-    if params[:create_anyway] != "true"
-      # search
-      @similar_books = by_params( params[:book] )
-      unless @similar_books.empty?
-        flash[:notice] =  'Похожие книги были найдены в нашей библиотеке.'
-        flash[:notice] << 'Может быть вы имели ввиду одну из них?'
+#      if params[:create_anyway] != "true"
+# #       search
+#        @similar_books = by_params( params[:book] )
+#        unless @similar_books.empty?
+#          flash[:notice] =  'Похожие книги были найдены в нашей библиотеке.'
+#          flash[:notice] << 'Может быть вы имели ввиду одну из них?'
+#          render :action => "new"
+#          return
+#        end
+#      end
+
+    case params[:add_action]
+    when "add_by_isbn"
+      @found_local_books = search_books_by_isbn params[:book][:isbn], :in => :local
+      if @found_local_books.empty?
+        @found_ozon_books = search_books_by_isbn params[:book][:isbn], :in => :ozon
+      end
+      render
+
+    else
+      @book.users << current_user
+
+      if @book.save
+        flash[:notice] = 'Книги была успешно добавлена.'
+        redirect_to book_url( @book )
+      else
         render :action => "new"
-        return
       end
     end
 
-    @book.users << current_user
-
-    if @book.save
-      flash[:notice] = 'Книги была успешно добавлена.'
-      redirect_to book_url( @book )
-    else
-      render :action => "new"
-    end
   end
 
   # PUT /books/1

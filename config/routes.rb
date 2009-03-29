@@ -2,11 +2,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :authors
   map.resource :search, :controller => 'search'
   map.resource :homepage
+
+  map.book_rating "books/:id/rating", :controller => 'books', :action => 'rating'
   map.resources :books do |book|
     book.resources :ownerships, :controller => 'ownership'
     book.resources :comments, :controller => 'book_comments'
   end
-  map.book_rating "books/:id/rating", :controller => 'books', :action => 'rating'
 
   # Restful Authentication Resources  map.resources :passwords
   # Home Page

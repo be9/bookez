@@ -1,0 +1,13 @@
+page.replace_html 'results', ""
+unless @found_local_books.empty?
+  page.insert_html :top, 'results', "<p>По данному ISBN были найдены следующие книги у пользователей Bookez. Для добавления перейдите на ее страницу.</p>"
+  page.insert_html :bottom, 'results', render( :partial => 'book', :collection => @found_local_books )
+else
+  unless @found_ozon_books.empty?
+    page.insert_html :top, 'results', "<p>По данному ISBN были найдены следующие книги в базе Ozon. Вы можете создать новую книгу, изменив и дополнив данные Ozon.</p>"
+    page.insert_html :bottom, 'results', render( :partial => 'ozon_book', :collection => @found_ozon_books )
+  else
+    page.insert_html :top, 'results', "<p>По данному ISBN не было найдено книг. Вы можете создать #{link_to "новую книгу", new_book_url(:manual => :true)}.</p>"
+
+  end
+end

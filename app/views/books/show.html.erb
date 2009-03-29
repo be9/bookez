@@ -80,7 +80,7 @@
 <% if current_user and not current_user.books.include?( @book ) %>
   <%= button_to 'Добавить в мою библиотеку', book_ownerships_path(@book) %>
 <% else %>
-  <%= link_to 'Убрать из моей библиотеки',
+  <%= button_to 'Убрать из моей библиотеки',
         book_ownership_path(@book),
         :method => :delete %>
 <% end %>

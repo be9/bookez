@@ -1,0 +1,28 @@
+
+<% 
+  @page_title = 'Добавление книги'
+  #@include_js = 'books'
+%>
+
+<%# <% form_for(@book) do |f| +| %>
+<%#   <%= hidden_field_tag "create_anyway", if has_similar then "true" else "false" end +| %>
+<%#    %>
+<%#   <%= render :partial => 'fields', :locals => { :f => f }  +| %>
+
+<%#   <p> %>
+<%#     <%= f.submit "Добавить" +| %>
+<%#   </p> %>
+<%# <% end +| %>
+
+<% remote_form_for @book do |f| %>
+  <%= hidden_field_tag :add_action, "add_by_isbn" %>
+
+  <p>Сначала введите <a href="Ihttp://en.wikipedia.org/wiki/ISBN">ISBN</a> книги, мы попробуем найти ее на наших книжных полках</p>
+  <%= f.text_field :isbn %>
+  <%= f.submit "Далее" %>
+<% end %>
+
+<div id="results">
+</div>
+
+<%= link_to 'Назад', books_path %>

@@ -11,6 +11,10 @@ module BooksHelper
     end.join(', ')
   end
 
+  def link_to_ozon_book(book)
+    link_to h(book.name), new_book_path( :ozon_id => book.id )
+  end
+
   def link_to_book(book)
     link_to h(book.title), book
   end
