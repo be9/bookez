@@ -1,7 +1,27 @@
 namespace :ozon do
 
+  desc "Downloads Ozon's XML file"
+  task :download => :environment do
+    if system "wget http://www.ozon.ru/multimedia/yml/partner/div_book.zip"
+
+      # backup old
+      system "mv div_book.xml div_book.xml.backup"
+
+      if system "unzip div_book.zip -o"
+        # remove backup
+        system "rm div_book.xml.backup"
+      else
+        # restore backup
+        system "mv div_book.xml.backup div_book.xml"
+      end
+
+    else
+      raise "There were errors while downloading!"
+    end
+  end
+
   desc "Parse Ozon's XML file"
-  task :parse => :environment do
+  task :parse => [:environment, :download] do
     require 'nokogiri'
 
     doc = Nokogiri::XML::SAX::Document.new
