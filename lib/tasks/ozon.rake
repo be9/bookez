@@ -1,23 +1,15 @@
 namespace :ozon do
+  desc "Clean ZIP and XML files"
+  task :clean do
+    sh "rm -f div_book.zip.downloading div_book.zip div_book.xml"
+  end
 
   desc "Downloads Ozon's XML file"
   task :download => :environment do
-    if system "wget http://www.ozon.ru/multimedia/yml/partner/div_book.zip"
-
-      # backup old
-      system "mv div_book.xml div_book.xml.backup"
-
-      if system "unzip div_book.zip -o"
-        # remove backup
-        system "rm div_book.xml.backup"
-      else
-        # restore backup
-        system "mv div_book.xml.backup div_book.xml"
-      end
-
-    else
-      raise "There were errors while downloading!"
-    end
+    sh "wget -c -O div_book.zip.downloading http://www.ozon.ru/multimedia/yml/partner/div_book.zip"
+    mv "div_book.zip.downloading", "div_book.zip"
+    sh "unzip -o div_book.zip"
+    rm "div_book.zip"
   end
 
   desc "Parse Ozon's XML file"
